@@ -451,6 +451,51 @@
       details.exp .exp-body { display: grid; }
     }
   </style>
+
+<style>
+  /* ---------- DocFlow interactive demo ---------- */
+  .proj-art .shot { transition: transform .6s var(--ease); }
+  .demo { margin-top: 56px; border: 1px solid var(--ink); border-radius: 28px; background: var(--surface); padding: 28px; box-shadow: 8px 8px 0 var(--accent); }
+  .demo-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-bottom: 6px; }
+  .demo h3 { font-family: var(--display); font-size: clamp(1.4rem, 3vw, 1.9rem); letter-spacing: -.03em; }
+  .demo-note { color: var(--muted); font-size: .86rem; }
+  .demo-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; margin-top: 22px; align-items: start; }
+  .paper { position: relative; background: #fff; color: #16140f; border: 1px solid #d8d2c3; border-radius: 6px; padding: 22px 24px 18px; min-height: 430px; box-shadow: 0 10px 30px rgba(0,0,0,.12); overflow: hidden; font-size: .84rem; line-height: 1.55; }
+  .paper::after { content: attr(data-mark); position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%) rotate(-28deg); font-family: var(--display); font-weight: 800; font-size: 4.4rem; letter-spacing: .06em; color: rgba(22, 20, 15, .06); pointer-events: none; white-space: nowrap; }
+  .paper-top { display: flex; justify-content: space-between; gap: 10px; border-bottom: 2px solid #1b3559; padding-bottom: 8px; margin-bottom: 10px; }
+  .paper-top b { font-family: var(--display); font-size: 1rem; letter-spacing: -.02em; }
+  .paper-top small { display: block; color: #6b665a; font-size: .68rem; }
+  .pill { align-self: flex-start; font-family: var(--mono); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #fff3d6; color: #8a5a00; white-space: nowrap; }
+  .pill.ok { background: #ddf6e7; color: #167a49; } .pill.rev { background: #e3edff; color: #1d4f9e; } .pill.empty { background: #eee; color: #666; }
+  .paper h4 { font-size: .78rem; margin: 10px 0 2px; color: #183b65; }
+  .paper p { margin: 0; min-height: 1.5em; }
+  .paper p.ph { color: #aaa; font-style: italic; }
+  .overflow { display: none; margin-top: 10px; padding: 7px 10px; border-left: 3px solid #d9822b; background: #fff4e6; color: #8a4b0f; font-size: .74rem; border-radius: 4px; }
+  .overflow.on { display: block; }
+  .zones { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; align-items: end; }
+  .zone { min-height: 74px; border: 1.5px dashed #91b6e7; border-radius: 6px; display: grid; place-items: center; text-align: center; color: #7f9cc4; font-size: .68rem; padding: 6px; }
+  .zone.done { border-style: solid; border-color: transparent; }
+  .sig { font-family: 'Brush Script MT', 'Segoe Script', cursive; font-size: 1.7rem; color: #214c83; transform: rotate(-5deg); }
+  .sigcap { display: block; font-family: var(--body); font-size: .62rem; color: #52637b; transform: none; border-top: 1px solid #52637b; margin-top: 4px; padding-top: 3px; }
+  .seal { width: 84px; height: 84px; border: 3px double #315d94; color: #315d94; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-11deg); font-size: .6rem; font-weight: 800; letter-spacing: .05em; line-height: 1.3; }
+  .paper-foot { margin-top: 12px; font-family: var(--mono); font-size: .64rem; color: #8190a2; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .steps4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+  .steps4 span { text-align: center; font-family: var(--mono); font-size: .66rem; letter-spacing: .05em; text-transform: uppercase; padding: 8px 4px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); }
+  .steps4 span.done { color: var(--ink); border-color: var(--ink); }
+  .steps4 span.now { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .dbtns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dbtns button { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg); font-weight: 600; font-size: .84rem; transition: .25s var(--ease); }
+  .dbtns button.alt { background: var(--surface); color: var(--ink); }
+  .dbtns button:hover:not(:disabled) { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .dbtns button:disabled { opacity: .38; cursor: not-allowed; }
+  .dmsg { min-height: 3.2em; margin: 14px 0 10px; padding: 10px 12px; border-radius: 12px; background: var(--bg-2); font-size: .86rem; color: var(--ink); }
+  .dmsg.bad { background: color-mix(in srgb, #e5484d 14%, var(--bg-2)); }
+  .dlog { font-family: var(--mono); font-size: .7rem; line-height: 1.75; max-height: 180px; overflow: auto; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--bg); color: var(--muted); }
+  .dlog b { color: var(--ink); font-weight: 600; } .dlog .h { color: var(--accent); }
+  [data-theme="light"] .dlog .h { color: #b3270a; }
+  .dchain { font-family: var(--mono); font-size: .66rem; margin: 8px 0 0; color: var(--muted); }
+  @media (max-width: 900px) { .demo-grid { grid-template-columns: 1fr; } .demo { padding: 18px; } }
+</style>
 </head>
 <body>
 <div id="progress"></div>
@@ -500,7 +545,6 @@
           <a href="https://www.linkedin.com/in/farhan-jarif-nibir-7a9718253/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="https://x.com/FarhanNibir21" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
           <a href="https://www.facebook.com/farhanjarif.nibir" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://api.whatsapp.com/send?phone=8801864803639" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
           <a href="https://telegram.me/nibir119" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
         </div>
       </div>
@@ -547,9 +591,8 @@
           <p>I've contributed to <strong>live production systems</strong>, collaborated with cross-functional teams, and supported clients and field users when things go wrong. I like picking the right tool for the job rather than tying myself to one framework.</p>
         </div>
         <ul class="facts reveal d1">
-          <li><span>Location</span><span>Mirpur-6, Dhaka-1216, Bangladesh</span></li>
+          <li><span>Location</span><span>Dhaka, Bangladesh</span></li>
           <li><span>Email</span><span>farhanjarifnibir@gmail.com</span></li>
-          <li><span>Phone</span><span>+880 1864-803639</span></li>
           <li><span>Degree</span><span>B.Sc. in CSE, 2024</span></li>
           <li><span>Languages</span><span>English, Bengali</span></li>
         </ul>
@@ -601,8 +644,8 @@
         </summary>
         <div class="exp-body"><div></div><div>
           <ul>
-            <li>Developing and maintaining ERP solutions for various companies.</li>
-            <li>Implementing new features and providing ongoing client support.</li>
+            <li>Build and maintain ERP solutions for client companies using PHP and Laravel.</li>
+            <li>Implement new features and provide ongoing support to the clients who use the systems.</li>
           </ul>
           <div class="tags"><span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">ERP</span></div>
         </div></div>
@@ -617,8 +660,8 @@
         </summary>
         <div class="exp-body"><div></div><div>
           <ul>
-            <li>Contributed to development and maintenance of ERP software for real estate and municipalities using PHP &amp; Laravel, ensuring system optimization.</li>
-            <li>Collaborated on feature implementation and troubleshot technical issues for seamless operations.</li>
+            <li>Contributed to the development and maintenance of ERP software for real estate and municipalities using PHP and Laravel, with a focus on system optimization.</li>
+            <li>Worked with the team to implement features and troubleshoot technical issues so daily operations ran smoothly.</li>
           </ul>
           <div class="tags"><span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">ERP</span><span class="tag">Real Estate</span></div>
         </div></div>
@@ -633,8 +676,8 @@
         </summary>
         <div class="exp-body"><div></div><div>
           <ul>
-            <li>Trained enumerators on how to effectively collect data using the “Census” app.</li>
-            <li>Provided IT support to troubleshoot and resolve technical issues during data collection.</li>
+            <li>Trained enumerators to collect census data efficiently using the Census app.</li>
+            <li>Provided IT support, resolving technical issues during data collection.</li>
           </ul>
           <div class="tags"><span class="tag">Training</span><span class="tag">IT Support</span></div>
         </div></div>
@@ -649,8 +692,8 @@
         </summary>
         <div class="exp-body"><div></div><div>
           <ul>
-            <li>Attended regular training sessions to strengthen web development skills and contributed to project and strategic planning for efficient team execution.</li>
-            <li>Developed and structured websites using Python, Django and HTML.</li>
+            <li>Took part in regular training sessions to build web development skills and contributed to project planning for efficient team execution.</li>
+            <li>Built and structured websites using Python, Django and HTML.</li>
           </ul>
           <div class="tags"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">HTML</span></div>
         </div></div>
@@ -750,6 +793,44 @@
           <div class="tags"><span class="tag">C++</span><span class="tag">Arduino</span></div></div>
       </a>
     </div>
+    <div class="demo reveal" id="docdemo">
+      <div class="demo-head">
+        <h3>Try the DocFlow workflow</h3>
+        <span class="demo-note">A simulation running in your browser. The real engine, tests and PDF output are in the repo.</span>
+      </div>
+      <div class="demo-grid">
+        <div class="paper" id="dPaper" data-mark="DRAFT" aria-label="Document preview">
+          <div class="paper-top">
+            <div><b>Equipment Inspection Report</b><small>Illustrative record · DEMO ONLY</small></div>
+            <span class="pill empty" id="dPill">Not generated</span>
+          </div>
+          <h4>1. Inspection Summary</h4><p id="dS" class="ph">Generated by AI from the intake data.</p>
+          <h4>2. Recorded Observations</h4><p id="dO" class="ph">Only the provided findings are used.</p>
+          <h4>3. Recommended Follow-up</h4><p id="dR" class="ph">Labeled as a proposal.</p>
+          <div class="overflow" id="dOv">Content is longer than the print zone, so it continues on page 2 and is never silently shrunk.</div>
+          <div class="zones">
+            <div class="zone" id="dSig">Signature zone<br>(reserved)</div>
+            <div class="zone" id="dSeal">Seal zone<br>(reserved)</div>
+          </div>
+          <div class="paper-foot"><span id="dVer">v0</span><span id="dHash">hash: —</span></div>
+        </div>
+        <div>
+          <div class="steps4" id="dSteps" aria-label="Workflow progress"><span>Draft</span><span>Review</span><span>Approved</span><span>Signed</span></div>
+          <div class="dbtns">
+            <button id="bGen">1. Generate AI draft</button>
+            <button id="bSub">2. Send to reviewer</button>
+            <button id="bApp">3. Approve</button>
+            <button id="bSign">4. Sign &amp; seal</button>
+            <button id="bEdit" class="alt">Edit a section</button>
+            <button id="bLong" class="alt">Add a long observation</button>
+            <button id="bReset" class="alt">Reset</button>
+          </div>
+          <div class="dmsg" id="dMsg" role="status" aria-live="polite">Start with step 1. Then try clicking <b>Sign &amp; seal</b> too early, or editing after approval.</div>
+          <div class="dlog" id="dLog" aria-label="Audit log"></div>
+          <p class="dchain" id="dChain"></p>
+        </div>
+      </div>
+    </div>
     <div class="more reveal">
       <a href="https://github.com/FarhanNibir" target="_blank" rel="noopener" class="btn btn-line"><i class="fa-brands fa-github"></i> More on GitHub</a>
     </div>
@@ -820,7 +901,6 @@
           <div><small>Email</small><b>farhanjarifnibir@gmail.com</b></div>
           <button class="copy" id="copyMail" type="button">Copy</button>
         </div>
-        <a class="mail-big" href="tel:+8801864803639"><div><small>Phone</small><b>+880 1864-803639</b></div><i class="fa-solid fa-phone"></i></a>
         <a class="mail-big" href="https://www.linkedin.com/in/farhan-jarif-nibir-7a9718253/" target="_blank" rel="noopener"><div><small>LinkedIn</small><b>linkedin.com/in/farhan-jarif-nibir</b></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
         <a class="mail-big" href="https://github.com/FarhanNibir" target="_blank" rel="noopener"><div><small>GitHub</small><b>github.com/FarhanNibir</b></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
       </div>
@@ -1272,6 +1352,100 @@
   });
 
   $('#year').textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  if (!$('docdemo')) return;
+  var SAMPLE = {
+    s: 'An inspection was recorded for Air Conditioner, Unit AC-204 at Northfield Business Center on 2026-11-06.',
+    o: 'Air filter was dusty. Cooling performance was slightly reduced. No unusual noise or leakage observed.',
+    r: ['Proposed: clean the air filter, check thermostat calibration, and recheck cooling performance after servicing.',
+        'Proposed: clean the air filter and recheck cooling performance; escalate to a technician if it is still reduced.']
+  };
+  var LONG = ' Panel section checked, no issue noted. Condenser area inspected, no visible damage. Drain line clear. Mounting bolts tight. Remote control responds normally.';
+  var st, rIdx;
+
+  function fnv(str) { var h = 0x811c9dc5; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return ('00000000' + h.toString(16)).slice(-8); }
+  function contentHash() { return fnv(JSON.stringify([st.s, st.o, st.r])) + fnv(st.o + st.r + st.s).slice(0, 4); }
+  function init() { st = { phase: 'empty', s: '', o: '', r: '', ver: 0, approved: null, log: [], long: false }; rIdx = 0; }
+  function addLog(who, what) {
+    var prev = st.log.length ? st.log[st.log.length - 1].h : '';
+    st.log.push({ who: who, what: what, h: fnv(prev + who + what + st.log.length) });
+  }
+  function msg(t, bad) { var m = $('dMsg'); m.innerHTML = t; m.className = 'dmsg' + (bad ? ' bad' : ''); }
+  function chainOk() { var prev = ''; for (var i = 0; i < st.log.length; i++) { var e = st.log[i]; if (e.h !== fnv(prev + e.who + e.what + i)) return false; prev = e.h; } return true; }
+
+  function render() {
+    var p = st.phase, pill = $('dPill');
+    var label = { empty: 'Not generated', draft: 'Draft', review: 'Pending review', approved: 'Approved', signed: 'Signed & final' }[p];
+    pill.textContent = label; pill.className = 'pill' + (p === 'empty' ? ' empty' : p === 'review' ? ' rev' : (p === 'approved' || p === 'signed') ? ' ok' : '');
+    [['dS', st.s, 'Generated by AI from the intake data.'], ['dO', st.o, 'Only the provided findings are used.'], ['dR', st.r, 'Labeled as a proposal.']].forEach(function (a) {
+      var el = $(a[0]); el.textContent = a[1] || a[2]; el.className = a[1] ? '' : 'ph';
+    });
+    $('dPaper').setAttribute('data-mark', p === 'signed' ? '' : 'DRAFT');
+    $('dOv').className = 'overflow' + (st.o.length > 230 ? ' on' : '');
+    var sig = $('dSig'), seal = $('dSeal');
+    if (p === 'signed') {
+      sig.className = 'zone done'; sig.innerHTML = '<div><div class="sig">M. Karim</div><span class="sigcap">Authorized Reviewer</span></div>';
+      seal.className = 'zone done'; seal.innerHTML = '<div class="seal">DEMO<br>SEAL<br>REVIEWED</div>';
+    } else {
+      sig.className = 'zone'; sig.innerHTML = 'Signature zone<br>(reserved)';
+      seal.className = 'zone'; seal.innerHTML = 'Seal zone<br>(reserved)';
+    }
+    $('dVer').textContent = 'v' + st.ver;
+    $('dHash').textContent = 'hash: ' + (st.ver ? contentHash().slice(0, 12) : '—');
+    var order = { empty: -1, draft: 0, review: 1, approved: 2, signed: 3 }[p];
+    Array.prototype.forEach.call($('dSteps').children, function (s, i) { s.className = i < order ? 'done' : i === order ? 'now' : ''; });
+    $('bGen').disabled = p !== 'empty';
+    $('bSub').disabled = p !== 'draft';
+    $('bApp').disabled = p !== 'review';
+    $('bSign').disabled = p === 'empty' || p === 'signed';
+    $('bEdit').disabled = p === 'empty' || p === 'signed';
+    $('bLong').disabled = p === 'empty' || p === 'signed' || st.long;
+    var lg = $('dLog');
+    lg.innerHTML = st.log.length ? st.log.slice().reverse().map(function (e) { return '<div>• <b>' + e.who + '</b> ' + e.what + ' <span class="h">#' + e.h + '</span></div>'; }).join('') : 'Audit log is empty. Every action will be recorded here.';
+    $('dChain').textContent = st.log.length ? 'Audit chain: ' + (chainOk() ? 'intact (each entry includes the previous entry’s hash)' : 'BROKEN') : '';
+  }
+
+  function changeContent(who, what) {
+    var wasApproved = st.phase === 'approved';
+    st.ver++; addLog(who, what + ' (v' + st.ver + ', hash ' + contentHash().slice(0, 8) + ')');
+    if (wasApproved) {
+      st.approved = null; st.phase = 'review';
+      addLog('system', 'approval invalidated: content changed, new review required');
+      msg('<b>Approval cancelled.</b> The content changed after approval, so it must be reviewed and approved again before it can be signed.', true);
+    } else {
+      msg('Saved as a new version. Earlier versions are never overwritten.');
+    }
+  }
+
+  $('bGen').onclick = function () {
+    st.s = SAMPLE.s; st.o = SAMPLE.o; st.r = SAMPLE.r[0]; st.ver = 1; st.phase = 'draft';
+    addLog('ai:mock', 'drafted 3 sections from mapped fields only (v1, hash ' + contentHash().slice(0, 8) + ')');
+    msg('Each section is drafted separately, and the AI only sees the fields mapped to that section. Output is validated before it appears.'); render();
+  };
+  $('bSub').onclick = function () { st.phase = 'review'; addLog('staff', 'internal QA passed, version frozen for reviewer'); msg('The reviewer now receives a frozen version.'); render(); };
+  $('bApp').onclick = function () {
+    st.phase = 'approved'; st.approved = contentHash();
+    addLog('reviewer', 'approved v' + st.ver + ' bound to hash ' + st.approved.slice(0, 8));
+    msg('Approval is tied to the exact content hash. Try <b>Edit a section</b> now, or continue to sign.'); render();
+  };
+  $('bSign').onclick = function () {
+    if (st.phase !== 'approved' || st.approved !== contentHash()) {
+      addLog('system', 'BLOCKED signing attempt: no valid approval for current content');
+      msg('<b>Blocked.</b> Only an approved, unchanged version can be signed and sealed.', true); render(); return;
+    }
+    st.phase = 'signed'; addLog('reviewer', 'signature and seal applied, final PDF locked');
+    msg('Signature and seal are placed only in their reserved zones, after approval. The document is now locked. (Demo graphics only.)'); render();
+  };
+  $('bEdit').onclick = function () { rIdx = 1 - rIdx; st.r = SAMPLE.r[rIdx]; changeContent('staff', 'edited section 3'); render(); };
+  $('bLong').onclick = function () { st.o += LONG; st.long = true; changeContent('staff', 'added long observation'); msg($('dMsg').innerHTML + ' Long text flows to page 2 instead of being shrunk.', $('dMsg').className.indexOf('bad') > -1); render(); };
+  $('bReset').onclick = function () { init(); msg('Reset. Start again with step 1.'); render(); };
+
+  init(); render();
 })();
 </script>
 </body>
